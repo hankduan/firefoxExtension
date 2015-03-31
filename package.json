@@ -1,0 +1,16 @@
+{
+  "name": "firefoxExtension",
+  "version": "0.0.1",
+  "author": "Hank Duan <duan.hank@gmail.com>",
+  "description": "demo app",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hankduan/firefoxExtension"
+  },
+  "dependencies": {
+    "protractor": "2.0.0",
+    "q": "1.0.0",
+    "firefox-profile": "0.3.4"
+  },
+  "license": "MIT"
+}
