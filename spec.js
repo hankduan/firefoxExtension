@@ -1,9 +1,27 @@
-describe('setting firefox profile', function() {
+describe('firefox extension', function() {
   it ('should measure performance', function() {
-    browser.sleep(3000); // wait 3s for extension to load
+    browser.sleep(3000); // wait for extension to load; might not be needed
 
     browser.driver.get('http://www.angularjs.org');
-    browser.executeScript('window.foo()');
-    browser.sleep(15000); // wait for it to finish
+
+    browser.executeScript('window.startProfiler()').then(function() {
+      console.log('started measuring perf');
+    });
+
+    browser.executeScript('window.forceGC()');
+
+    // Run some commands
+    element(by.model('yourName')).sendKeys('Hank');
+    expect(element(by.binding('yourName')).getText()).toEqual('Hello Hank!');
+
+    browser.executeScript('window.forceGC()');
+
+    var script = 
+        'window.stopAndRecord("' + browser.params.profileSavePath + '")';
+    browser.executeScript(script).then(function() {
+      console.log('stopped measuring perf');
+    });
+
+    browser.sleep(3000); // wait for it to finish; might not be needed
   })
 });
